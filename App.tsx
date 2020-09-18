@@ -1,21 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
+import React from "react";
+import Tabbar from "./src/Tabbar";
+import { createStackNavigator } from "@react-navigation/stack";
+import Examples from "./src/Expamles";
+import VoiceRecord from "./src/VoiceRecord";
+import LoadAssets from "./src/components/LoadAssets";
+const AppNavigator = createStackNavigator();
+const fonts = {
+  "SFProText-Bold": require("./assets/fonts/SF-Pro-Text-Bold.otf"),
+  "SFProText-Semibold": require("./assets/fonts/SF-Pro-Text-Semibold.otf"),
+  "SFProText-Regular": require("./assets/fonts/SF-Pro-Text-Regular.otf"),
+};
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <LoadAssets {...{ fonts }}>
+      <AppNavigator.Navigator initialRouteName="Examples">
+        <AppNavigator.Screen component={Examples} name="Examples" />
+        <AppNavigator.Screen component={Tabbar} name="Tabbar" />
+        <AppNavigator.Screen component={VoiceRecord} name="VoiceRecord" />
+      </AppNavigator.Navigator>
+    </LoadAssets>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
